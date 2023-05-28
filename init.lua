@@ -26,7 +26,14 @@ require("lazy").setup({
         end
 
     },
+
     -- file explorer
+    {
+        'stevearc/oil.nvim',
+        opts = {},
+        -- Run : sudo pacman -S nerd-fonts.
+        dependencies = { "nvim-tree/nvim-web-devicons" },
+    }
     -- terminal window
     -- status line
 
