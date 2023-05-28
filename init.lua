@@ -3,6 +3,7 @@
 -- Dependencies :
 -- nerd-fonts
 -- livegrep, fd
+-- tree-sitter
 
 -- Installs lazy package manager.
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
@@ -100,6 +101,29 @@ require("lazy").setup({
     },
 
     -- syntax highlighting
+    { 'nvim-treesitter/nvim-treesitter',
+       build = ":TSUpdate",
+       config = function()
+           require("nvim-treesitter.configs").setup({
+ 
+            ensure_installed = { "astro", "bash", "c", "css", "fish", "gdscript", "go", "html", "javascript", "json", "lua", "python", "regex", "sql", "svelte", "toml", "yaml" },
+            sync_install = true,
+            auto_install = true, -- requires `tree-sitter` cli
+            ignore_install = { "" },
+            highlight = {
+                enable = true,
+                disable = {},
+                -- disables slow treesitter highlight for large files
+                disable = function(lang, buf)
+                    local max_filesize = 100 * 1024 -- 100 KB
+                    local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
+                    if ok and stats and stats.size > max_filesize then
+                        return true
+                    end
+                end},
+           })
+       end},
+
     -- lsp support
     -- autocompletion
     -- git integration
