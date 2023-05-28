@@ -15,6 +15,17 @@ require("lazy").setup({
     -- PDE Features :
 
     -- colorscheme
+    {
+        "ellisonleao/gruvbox.nvim",
+        config = function()
+            require("gruvbox").setup({
+                contrast = "hard",
+
+            })
+            vim.cmd("colorscheme gruvbox")
+        end
+
+    },
     -- file explorer
     -- terminal window
     -- status line
@@ -107,7 +118,7 @@ vim.o.splitbelow = true
 
 -- Hide buffers when they are not displayed.
 vim.o.hidden = true
-                    
+
 -- Enable 256-color support.
 vim.o.termguicolors = true
 
