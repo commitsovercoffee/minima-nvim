@@ -20,11 +20,9 @@ require("lazy").setup({
         config = function()
             require("gruvbox").setup({
                 contrast = "hard",
-
             })
             vim.cmd("colorscheme gruvbox")
         end
-
     },
 
     -- file explorer
@@ -46,9 +44,21 @@ require("lazy").setup({
                 direction = 'horizontal',
             })
         end
-
     },
+
     -- status line
+    {
+        'nvim-lualine/lualine.nvim',
+        dependencies = { "nvim-tree/nvim-web-devicons" },
+        opts = {
+            options = {
+                icons_enabled = false,
+                theme = "gruvbox_dark",
+                component_separators = "|",
+                section_separators = "",
+            },
+        },
+    },
 
     -- fuzzy finder
     -- session manager
