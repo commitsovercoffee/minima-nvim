@@ -83,6 +83,21 @@ require("lazy").setup({
     },
 
     -- session manager
+    {
+        'rmagatti/auto-session',
+        config = function()
+            require("auto-session").setup({
+            log_level = "error",
+            auto_session_suppress_dirs = { "~/", "~/Projects", "~/Downloads", "/"},
+            session_lens = {
+                -- If load_on_setup is set to false, one needs to eventually call `require("auto-session").setup_session_lens()` if they want to use session-lens.
+                load_on_setup = true,
+                theme_conf = { border = true },
+                previewer = false,
+                },
+            })
+        end
+    },
 
     -- syntax highlighting
     -- lsp support
@@ -101,8 +116,6 @@ require("lazy").setup({
 
 }, {})
 
-
-
 -- { Keymaps } -----------------------------------------------------------
 
 -- Sets leader key.
@@ -110,6 +123,9 @@ vim.g.mapleader = "\\"
 
 -- Edit filesystem as a buffer
 vim.keymap.set('n', '<leader>ee', require('oil').open, {})
+
+-- Search for sessions
+vim.keymap.set("n", "<leader>ss", require("auto-session.session-lens").search_session, {noremap = true,})
 
 -- Open telescope builtins
 local builtin = require('telescope.builtin')
