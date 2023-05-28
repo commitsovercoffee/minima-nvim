@@ -33,8 +33,21 @@ require("lazy").setup({
         opts = {},
         -- Run : sudo pacman -S nerd-fonts.
         dependencies = { "nvim-tree/nvim-web-devicons" },
-    }
+    },
+
     -- terminal window
+    {
+        'akinsho/toggleterm.nvim',
+        version = "*",
+        config = function()
+            require("toggleterm").setup({
+                size = 25,
+                open_mapping = [[<c-\>]],
+                direction = 'horizontal',
+            })
+        end
+
+    },
     -- status line
 
     -- fuzzy finder
