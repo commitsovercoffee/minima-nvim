@@ -1,5 +1,9 @@
 -- { Plugins } -----------------------------------------------------------
 
+-- Dependencies :
+-- nerd-fonts
+-- livegrep, fd
+
 -- Installs lazy package manager.
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
@@ -29,7 +33,6 @@ require("lazy").setup({
     {
         'stevearc/oil.nvim',
         opts = {},
-        -- Run : sudo pacman -S nerd-fonts.
         dependencies = { "nvim-tree/nvim-web-devicons" },
     },
 
@@ -61,6 +64,24 @@ require("lazy").setup({
     },
 
     -- fuzzy finder
+    {
+        'nvim-telescope/telescope.nvim',
+        version = "*",
+        dependencies = { "nvim-lua/plenary.nvim" },
+        config = function()
+            require('telescope').setup {
+                defaults = {
+                    mappings = {
+                        i = {
+                            ["<C-u>"] = false,
+                            ["<C-d>"] = false,
+                        },
+                    }
+                },
+            }
+        end
+    },
+
     -- session manager
 
     -- syntax highlighting
@@ -86,6 +107,15 @@ require("lazy").setup({
 
 -- Sets leader key.
 vim.g.mapleader = "\\"
+
+-- Edit filesystem as a buffer
+vim.keymap.set('n', '<leader>ee', require('oil').open, {})
+
+-- Open telescope builtins
+local builtin = require('telescope.builtin')
+vim.keymap.set('n', '<leader>ff', builtin.find_files, {})
+vim.keymap.set('n', '<leader>fg', builtin.live_grep, {})
+vim.keymap.set('n', '<leader>fb', builtin.buffers, {})
 
 -- { Settings } ----------------------------------------------------------
 
