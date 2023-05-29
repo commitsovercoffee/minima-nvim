@@ -158,9 +158,22 @@ require("lazy").setup({
                 },
             }
         },
-    }
+    },
 
     -- git integration
+    "tpope/vim-fugitive",
+    {
+        "lewis6991/gitsigns.nvim",
+        opts = {
+            signs = {
+                change = { text = "~" },
+                add = { text = "+" },
+                delete = { text = "_" },
+                topdelete = { text = "‾" },
+                changedelete = { text = "~" },
+            },
+        }
+    },
 
     -- Development :
 
