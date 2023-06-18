@@ -46,7 +46,7 @@ set.background="dark"; -- use "dark" or "light" for highlight
 
 vim.g.mapleader = " " -- setting space as leader key.
 
---[[ PLUGIN MANAGER
+--[[ PLUGIN MANAGER -----------------------------------------------------------
 
 After setting the options, you will want more. As a human you can never be
 satisfied. To add "more" to neovim, we can install plugins. To install and
@@ -73,7 +73,7 @@ vim.opt.rtp:prepend(lazypath);
 -- setup ...
 require("lazy").setup({
 
---[[ Plugins ------------------------------------------------------------------
+--[[ PLUGINS ------------------------------------------------------------------
 
 While setting up the plugin manager, you can specify the plugins you want to
 load, along with their configurations.
@@ -100,6 +100,7 @@ load, along with their configurations.
 			keymaps = {
 				["<BS>"] = "actions.parent",
 			},
+			vim.keymap.set('n', '<leader>ee', require('oil').open, {})
 		})
 	end
 },
@@ -162,5 +163,29 @@ load, along with their configurations.
 		})
 	end
 },
-    
+
+-- 7. Syntax highlighting.
+{
+	'nvim-treesitter/nvim-treesitter',
+ 	build = ":TSUpdate",
+	config = function () 
+		require'nvim-treesitter.configs'.setup ({
+			-- Automatically install missing parsers when entering buffer.
+			-- Dependency : 'tree-sitter' cli installed locally.
+			auto_install = true,
+			highlight = {
+				enable = true,
+				-- Disable slow treesitter highlight for large files
+				disable = function(lang, buf)
+				local max_filesize = 100 * 1024 -- 100 KB
+				local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
+					if ok and stats and stats.size > max_filesize then
+						return true
+					end
+				end,
+    				additional_vim_regex_highlighting = false,
+  			},
+		})
+	end
+},
 }, opts);
