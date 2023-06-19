@@ -7,44 +7,44 @@ achieve special effects. Using 'vim.o' we can get or set vim options.
 
 ]]
 
-local set = vim.o;
+local set = vim.o
 
-set.autochdir = true;       -- change directory to the file in the current window.
-set.cdhome = true;          -- :cd without an argument changes the cwd to the $HOME dir.
+set.autochdir = true -- change directory to the file in the current window.
+set.cdhome = true -- :cd without an argument changes the cwd to the $HOME dir.
 
-set.fileencoding = "utf-8"; -- file encoding for multibyte text.
-set.autoread = false;       -- read file when changed outside of Vim.
+set.fileencoding = "utf-8" -- file encoding for multibyte text.
+set.autoread = false -- read file when changed outside of Vim.
 
-set.wrap = false;           -- long lines wrap and continue on the next line.
-set.autoindent = true;      -- take indent for new line from previous line.
-set.scrolloff = 8;          -- minimum nr. of lines above and below cursor.
+set.wrap = false -- long lines wrap and continue on the next line.
+set.autoindent = true -- take indent for new line from previous line.
+set.scrolloff = 8 -- minimum nr. of lines above and below cursor.
 
-set.incsearch = true;       -- highlight match while typing search pattern.
-set.smartcase = true;       -- no ignore case when pattern has uppercase.
+set.incsearch = true -- highlight match while typing search pattern.
+set.smartcase = true -- no ignore case when pattern has uppercase.
 
-set.number = true;          -- print the line number in front of each line.
-set.relativenumber = true;  -- show relative line number in front of each line.
+set.number = true -- print the line number in front of each line.
+set.relativenumber = true -- show relative line number in front of each line.
 
-set.signcolumn = "yes";     -- always display the sign column.
-set.colorcolumn = "80";     -- highlight 80th column to indiate optimal code width.
-set.cursorline = true;      -- highlight the screen line of the cursor.
+set.signcolumn = "yes" -- always display the sign column.
+set.colorcolumn = "80" -- highlight 80th column to indiate optimal code width.
+set.cursorline = true -- highlight the screen line of the cursor.
 
 -- use clipboard register "+" for all yank, delete, change and put operations.
 set.clipboard = "unnamedplus"
 set.selection = "exclusive" -- what type of selection to use.
 
-set.spell = false;          -- enable spell checking.
-set.spelllang = 'en_us';    -- language(s) to do spell checking for.
+set.spell = false -- enable spell checking.
+set.spelllang = "en_us" -- language(s) to do spell checking for.
 
-set.swapfile = false;       -- whether to use a swapfile for a buffer.
-set.backup = false;         -- keep backup file after overwriting a file.
+set.swapfile = false -- whether to use a swapfile for a buffer.
+set.backup = false -- keep backup file after overwriting a file.
 
-set.undofile = true;        -- save undo information in a file.
+set.undofile = true -- save undo information in a file.
 set.undodir = vim.fn.expand("~/.config/nvim/undodir")
 
-set.background = "dark"; -- use "dark" or "light" for highlight
+set.background = "dark" -- use "dark" or "light" for highlight
 
-vim.g.mapleader = " "    -- setting space as leader key.
+vim.g.mapleader = " " -- setting space as leader key.
 
 --[[ PLUGIN MANAGER -----------------------------------------------------------
 
@@ -68,7 +68,7 @@ if not vim.loop.fs_stat(lazypath) then
 		lazypath,
 	})
 end
-vim.opt.rtp:prepend(lazypath);
+vim.opt.rtp:prepend(lazypath)
 
 -- setup ...
 require("lazy").setup({
@@ -85,13 +85,13 @@ load, along with their configurations.
 		"catppuccin/nvim",
 		priority = 1000,
 		config = function()
-			vim.cmd "colorscheme catppuccin-mocha"
-		end
+			vim.cmd("colorscheme catppuccin-mocha")
+		end,
 	},
 
 	-- 2. A file-explorer. duh ! ( this is not a file tree. )
 	{
-		'stevearc/oil.nvim', -- use can edit this as a normal neovim buffer.
+		"stevearc/oil.nvim", -- use can edit this as a normal neovim buffer.
 		opts = {},
 		-- Optional dependencies
 		dependencies = { "nvim-tree/nvim-web-devicons" },
@@ -100,29 +100,29 @@ load, along with their configurations.
 				keymaps = {
 					["<BS>"] = "actions.parent",
 				},
-				vim.keymap.set('n', '<leader>ee', require('oil').open, {})
+				vim.keymap.set("n", "<leader>ee", require("oil").open, {}),
 			})
-		end
+		end,
 	},
 
 	-- 3. A terminal. sudo away !
 	{
-		'akinsho/toggleterm.nvim',
+		"akinsho/toggleterm.nvim",
 		version = "*",
 		config = function()
 			require("toggleterm").setup({
 				size = 20,
 				open_mapping = [[<c-space>]], -- use [Ctrl][Space] to toggle terminal.
-				direction = 'horizontal',
+				direction = "horizontal",
 			})
-		end
+		end,
 	},
 
 	-- 4. A statusline. So you can ignore the useful info.
 	{
-		'nvim-lualine/lualine.nvim',
+		"nvim-lualine/lualine.nvim",
 		-- Optional dependencies
-		dependencies = { 'nvim-tree/nvim-web-devicons' },
+		dependencies = { "nvim-tree/nvim-web-devicons" },
 		opts = {
 			options = {
 				icons_enabled = true,
@@ -133,44 +133,44 @@ load, along with their configurations.
 		},
 		config = function()
 			require("lualine").setup({})
-		end
+		end,
 	},
 
 	-- 5. A fuzzy finder. Cause who needs a file manager ?
 	{
-		'nvim-telescope/telescope.nvim',
-		tag = '0.1.1',
-		dependencies = { 'nvim-lua/plenary.nvim' },
+		"nvim-telescope/telescope.nvim",
+		tag = "0.1.1",
+		dependencies = { "nvim-lua/plenary.nvim" },
 		config = function()
 			require("telescope").setup({
 				-- [leader][ff] will open fuzzy finder in "find files" mode. And so on ...
-				vim.keymap.set('n', '<leader>ff', require('telescope.builtin').find_files, {}),
-				vim.keymap.set('n', '<leader>gg', require('telescope.builtin').live_grep, {}),
-				vim.keymap.set('n', '<leader>gc', require('telescope.builtin').git_commits, {}),
-				vim.keymap.set('n', '<leader>gb', require('telescope.builtin').git_branches, {}),
-				vim.keymap.set('n', '<leader>fd', require('telescope.builtin').diagnostics, {}),
+				vim.keymap.set("n", "<leader>ff", require("telescope.builtin").find_files, {}),
+				vim.keymap.set("n", "<leader>gg", require("telescope.builtin").live_grep, {}),
+				vim.keymap.set("n", "<leader>gc", require("telescope.builtin").git_commits, {}),
+				vim.keymap.set("n", "<leader>gb", require("telescope.builtin").git_branches, {}),
+				vim.keymap.set("n", "<leader>fd", require("telescope.builtin").diagnostics, {}),
 			})
-		end
+		end,
 	},
 
 	-- 6. A session manager. Blink back to work !
 	{
-		'rmagatti/auto-session', -- save a session using ":SessionSave".
+		"rmagatti/auto-session", -- save a session using ":SessionSave".
 		config = function()
 			require("auto-session").setup({
 				log_level = "error",
 				auto_session_suppress_dirs = { "~/", "~/Projects", "~/Downloads", "/" },
 				vim.keymap.set("n", "<leader>ss", require("auto-session.session-lens").search_session, {}),
 			})
-		end
+		end,
 	},
 
 	-- 7. Syntax highlighting.
 	{
-		'nvim-treesitter/nvim-treesitter',
+		"nvim-treesitter/nvim-treesitter",
 		build = ":TSUpdate",
 		config = function()
-			require 'nvim-treesitter.configs'.setup({
+			require("nvim-treesitter.configs").setup({
 				-- Automatically install missing parsers when entering buffer.
 				-- Dependency : 'tree-sitter' cli installed locally.
 				auto_install = true,
@@ -187,7 +187,7 @@ load, along with their configurations.
 					additional_vim_regex_highlighting = false,
 				},
 			})
-		end
+		end,
 	},
 
 	--[[ LANGUAGE SERVER PROTOCOL -----------------------------------------
@@ -199,48 +199,89 @@ Neovim provides a lsp client, but servers are provided by third parties.
 
 ]]
 
+	-- Install lsp, formatter, linters etc using ":Mason".
+	-- You will need to setup these packages to use them :
 	{
-		'neovim/nvim-lspconfig',
+		"williamboman/mason.nvim",
+		build = ":MasonUpdate", -- :MasonUpdate updates registry contents
 		config = function()
-			-- Replace <lsp_server> with pyright for Python, tsserver for TypeScript, etc.).
-			-- require('lspconfig').<lsp_server>.setup({})
+			require("mason").setup({})
+		end,
+	},
 
-			require('lspconfig').pyright.setup({})
-			require('lspconfig').lua_ls.setup({})
+	-- 1. Setup installed lsp :
+	{
+		"neovim/nvim-lspconfig",
+		config = function()
+			-- Visit "github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md"
+			-- and search your desired lsp. Then, paste snippet to enable lsp below :
+
+			require("lspconfig").pyright.setup({}) -- python
+			require("lspconfig").lua_ls.setup({}) -- lua
+			require("lspconfig").svelte.setup({}) -- svelte
 
 			-- Global mappings.
-			vim.keymap.set('n', '<space>e', vim.diagnostic.open_float)
-			vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
-			vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
+			vim.keymap.set("n", "<space>e", vim.diagnostic.open_float)
+			vim.keymap.set("n", "[d", vim.diagnostic.goto_prev)
+			vim.keymap.set("n", "]d", vim.diagnostic.goto_next)
 
 			-- Map keys if language server attaches to the current buffer.
-			vim.api.nvim_create_autocmd('LspAttach', {
-				group = vim.api.nvim_create_augroup('UserLspConfig', {}),
+			vim.api.nvim_create_autocmd("LspAttach", {
+				group = vim.api.nvim_create_augroup("UserLspConfig", {}),
 
 				callback = function(ev)
 					-- Buffer local mappings.
 					-- See `:help vim.lsp.*` for documentation on any of the below functions.
 					local opts = { buffer = ev.buf }
-					vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
-					vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
-					vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
-					vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
-					vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, opts)
-					vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, opts)
-					vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, opts)
+					vim.keymap.set("n", "gD", vim.lsp.buf.declaration, opts)
+					vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
+					vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
+					vim.keymap.set("n", "gi", vim.lsp.buf.implementation, opts)
+					vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, opts)
+					vim.keymap.set("n", "<space>wa", vim.lsp.buf.add_workspace_folder, opts)
+					vim.keymap.set("n", "<space>wr", vim.lsp.buf.remove_workspace_folder, opts)
 
-					vim.keymap.set('n', '<space>wl', function()
+					vim.keymap.set("n", "<space>wl", function()
 						print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
 					end, opts)
 
-					vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, opts)
-					vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, opts)
-					vim.keymap.set({ 'n', 'v' }, '<space>ca', vim.lsp.buf.code_action, opts)
-					vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
+					vim.keymap.set("n", "<space>D", vim.lsp.buf.type_definition, opts)
+					vim.keymap.set("n", "<space>rn", vim.lsp.buf.rename, opts)
+					vim.keymap.set({ "n", "v" }, "<space>ca", vim.lsp.buf.code_action, opts)
+					vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
+
+					-- vim.keymap.set("n", "<space>f", function()
+					-- 	vim.lsp.buf.format({ async = true })
+					-- end, opts)
 				end,
-
 			})
-		end
-	}
+		end,
+	},
 
-}, {});
+	-- 2. Setup installed formatter :
+	{
+		"jose-elias-alvarez/null-ls.nvim",
+		config = function()
+			-- Visit "https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTINS.md#formatting"
+			-- and search your desired formatter. Then, add the usage command below :
+
+			require("null-ls").setup({
+				sources = {
+					require("null-ls").builtins.formatting.stylua,
+				},
+				on_attach = function(client, bufnr)
+					if client.supports_method("textDocument/formatting") then
+						vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
+						vim.api.nvim_create_autocmd("BufWritePre", {
+							group = augroup,
+							buffer = bufnr,
+							callback = function()
+								vim.lsp.buf.format({ async = false })
+							end,
+						})
+					end
+				end,
+			})
+		end,
+	},
+}, {})
