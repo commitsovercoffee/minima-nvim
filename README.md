@@ -2,6 +2,8 @@
 
 This repo contains my neovim config as a single `init.lua` file that sets up ...
 
+![](minimaNvim.png)
+
 - file explorer with [oil](https://github.com/stevearc/oil.nvim) ~ open/edit files and folders.
 - fuzzy finder with [telescope](https://github.com/nvim-telescope/telescope.nvim) ~ search for text, files, diagnostics and a lot more.
 - terminal support with [toggleterm](https://github.com/akinsho/toggleterm.nvim) ~ open terminal within neovim.
@@ -45,5 +47,3 @@ After installing packages using ":mason" you will need to add that package in th
 ## Status
 
 This project is my daily driver. I contribute to this project if and when I come across something useful or to add bugfixes.
-
-
