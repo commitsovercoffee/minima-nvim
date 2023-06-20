@@ -22,12 +22,13 @@ Along with sane defaults and keymappings.
 
 ## What is it ?
 
-- MinimaNvim is a single file neovim config written in lua aiming to provide a (highly opiniated) base config.
-- The configuration is well-commented to provide a clear and concise overview of the different blocks of code. This makes it easy to understand what each block does, so users can easily play with the configuration and evolve it as they like.
+- MinimaNvim is a minimalist neovim configuration designed to offer a solid foundation for users looking to enhance their neovim experience. Built using Lua, it focuses on providing a highly opinionated yet flexible base configuration.
+- This single file configuration is meticulously documented with clear and concise comments, offering users a comprehensive overview of each block of code. With this approach, understanding the purpose and functionality of different code sections becomes effortless.
+- Easily experiment and evolve the configuration according to your preferences. Whether you are a seasoned neovim user or just getting started, MinimaNvim provides a lightweight and customizable solution to streamline your editing workflow.
 
 What is neovim ? Any why bother configurig it ?
 
-It is an editor just like notepad or gedit. What's special about neovim is that it is a modal text editor that is designed to be fast and efficient. You can extend its functionality using plugins, and hence it makes up for a great programming editor since you can add functionalities that you want, and ultimately create your [PDE](https://www.youtube.com/watch?v=QMVIJhC9Veg) ( personalized development environment ).
+It is an editor just like notepad or gedit. What's special about neovim is that it is a modal text editor that is designed to be fast and efficient. And you can extend its functionality using plugins, and hence it makes up for a great programming editor since you can add the functionalities that "you" want, and ultimately create your [PDE](https://www.youtube.com/watch?v=QMVIJhC9Veg) ( personalized development environment ).
 
 ## How to use it ?
 
@@ -51,6 +52,8 @@ After installing packages using ":mason" you will need to add that package in th
 - To setup lsp follow [these](https://github.com/commitsovercoffee/minima-nvim/blob/main/init.lua#L234) steps.
 - To setup linter, formatter etc follow [these](https://github.com/commitsovercoffee/minima-nvim/blob/main/init.lua#L286) steps.
 
+
 ## Status
 
 This project is my daily driver. I contribute to this project if and when I come across something useful or to add bugfixes.
+
