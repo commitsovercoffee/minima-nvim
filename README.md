@@ -1,8 +1,10 @@
 # MinimaNvim
 
-This repo contains my neovim config as a single `init.lua` file that sets up ...
+This repo contains my neovim config as a single `init.lua` file.
 
 ![](minimaNvim.png)
+
+Features :
 
 - file explorer with [oil](https://github.com/stevearc/oil.nvim) ~ open/edit files and folders.
 - fuzzy finder with [telescope](https://github.com/nvim-telescope/telescope.nvim) ~ search for text, files, diagnostics and a lot more.
@@ -18,11 +20,16 @@ This repo contains my neovim config as a single `init.lua` file that sets up ...
 
 Along with sane defaults and keymappings.
 
-## What is neovim ?
+## What is it ?
 
-It is an editor just like notepad or gedit. What's special about neovim is that it is a modal text editor that is designed to be fast and efficient. And you can extend its functionality using plugins, and hence it makes up for a great programming editor since you can add functionalities that you want, and ultimately create your [PDE](https://www.youtube.com/watch?v=QMVIJhC9Veg) ( personalized development environment ).
+- MinimaNvim is a single file neovim config written in lua aiming to provide a (highly opiniated) base config.
+- The configuration is well-commented to provide a clear and concise overview of the different blocks of code. This makes it easy to understand what each block does, so users can easily play with the configuration and evolve it as they like.
 
-## Usage
+What is neovim ? Any why bother configurig it ?
+
+It is an editor just like notepad or gedit. What's special about neovim is that it is a modal text editor that is designed to be fast and efficient. You can extend its functionality using plugins, and hence it makes up for a great programming editor since you can add functionalities that you want, and ultimately create your [PDE](https://www.youtube.com/watch?v=QMVIJhC9Veg) ( personalized development environment ).
+
+## How to use it ?
 
 - Install neovim.
 - Backup current nvim and shared folder.
@@ -39,10 +46,10 @@ It is an editor just like notepad or gedit. What's special about neovim is that 
 
 ## Mason package not working ?
 
-After installing packages using ":mason" you will need to add that package in the config. To setup ...
+After installing packages using ":mason" you will need to add that package in the config.
 
-- lsp follow [these](https://github.com/commitsovercoffee/minima-nvim/blob/main/init.lua#L234) steps.
-- linter, formatter etc follow [these](https://github.com/commitsovercoffee/minima-nvim/blob/main/init.lua#L286) steps.
+- To setup lsp follow [these](https://github.com/commitsovercoffee/minima-nvim/blob/main/init.lua#L234) steps.
+- To setup linter, formatter etc follow [these](https://github.com/commitsovercoffee/minima-nvim/blob/main/init.lua#L286) steps.
 
 ## Status
 
