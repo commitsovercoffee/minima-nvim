@@ -15,7 +15,7 @@ configurations, and plugins.
 -- vim.o options are variables that control the behavior of neovim. They can
 -- be set to change the appearance of Neovim or the way it behaves.
 
-vim.o.autochdir = true -- change directory to the file in the current window.
+vim.o.autochdir = false -- change directory to the file in the current window.
 vim.o.cdhome = true -- :cd without an argument changes the cwd to the $HOME dir.
 
 vim.o.fileencoding = "utf-8" -- file encoding for multibyte text.
@@ -201,6 +201,8 @@ require("lazy").setup({
 		},
 	},
 
+	{ "mrjones2014/smart-splits.nvim" },
+
 	--[[
 
 Up to this point, we have completed some basic one-time setup, including adding
@@ -238,6 +240,7 @@ In addition to these basic functionalities, you may need a :
 			require("lspconfig").pyright.setup({}) -- python
 			require("lspconfig").lua_ls.setup({}) -- lua
 			require("lspconfig").svelte.setup({}) -- svelte
+			require("lspconfig").astro.setup({}) -- astro
 
 			-- Step 4 : Open file in neovim for which you have installed lsp.
 			-- Step 5 : Run ":LspInfo", to verify that lsp is attached.
@@ -290,7 +293,16 @@ In addition to these basic functionalities, you may need a :
 					require("null-ls").builtins.code_actions.gitsigns,
 					require("null-ls").builtins.formatting.stylua,
 					require("null-ls").builtins.formatting.prettierd.with({
-						filetypes = { "html", "json", "yaml", "markdown", "svelte" },
+						filetypes = {
+							"html",
+							"json",
+							"yaml",
+							"markdown",
+							"svelte",
+							"javascript",
+							"css",
+							"astro",
+						},
 					}),
 
 					-- Step 4 : Open file for which you have installed formatter.
@@ -402,3 +414,22 @@ cmp.setup.cmdline(":", {
 		},
 	}),
 })
+
+-- Keymaps --------------------------------------------------------------------
+local function map(mode, lhs, rhs, opts)
+	local options = { noremap = true, silent = true }
+	if opts then
+		options = vim.tbl_extend("force", options, opts)
+	end
+	vim.api.nvim_set_keymap(mode, lhs, rhs, options)
+end
+
+map("n", "<leader>ww", ":w<CR>") -- save
+map("n", "<leader>qq", ":q<CR>") -- quit
+
+-- Neovide --------------------------------------------------------------------
+
+if vim.g.neovide then
+	-- Put anything you want to happen only in Neovide here
+	vim.o.guifont = "FiraCode Nerd Font Mono:size=32"
+end
