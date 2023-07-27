@@ -244,7 +244,9 @@ In addition to these basic functionalities, you may need a :
 			require("lspconfig").lua_ls.setup({}) -- lua
 			require("lspconfig").svelte.setup({}) -- svelte
 			require("lspconfig").astro.setup({}) -- astro
-			require 'lspconfig'.gopls.setup {} -- google's lsp for golang
+			require("lspconfig").tailwindcss.setup({}) -- tailwindcss
+			require("lspconfig").gopls.setup {} -- google's lsp for golang
+
 
 			-- Step 4 : Open file in neovim for which you have installed lsp.
 			-- Step 5 : Run ":LspInfo", to verify that lsp is attached.
