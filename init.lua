@@ -223,7 +223,27 @@ require("lazy").setup({
 		},
 	},
 
-	{ "mrjones2014/smart-splits.nvim" },
+	{
+		"mrjones2014/smart-splits.nvim",
+		config = function()
+			require("smart-splits").setup({
+				default_amount = 20,
+				-- recommended mappings
+				-- resizing splits
+				-- these keymaps will also accept a range,
+				-- for example `10<A-h>` will `resize_left` by `(10 * config.default_amount)`
+				vim.keymap.set("n", "<leader>mh", require("smart-splits").resize_left),
+				vim.keymap.set("n", "<leader>mj", require("smart-splits").resize_down),
+				vim.keymap.set("n", "<leader>mk", require("smart-splits").resize_up),
+				vim.keymap.set("n", "<leader>ml", require("smart-splits").resize_right),
+				-- moving between splits
+				vim.keymap.set("n", "<C-h>", require("smart-splits").move_cursor_left),
+				vim.keymap.set("n", "<C-j>", require("smart-splits").move_cursor_down),
+				vim.keymap.set("n", "<C-k>", require("smart-splits").move_cursor_up),
+				vim.keymap.set("n", "<C-l>", require("smart-splits").move_cursor_right),
+			})
+		end,
+	},
 
 	--[[
 
@@ -286,7 +306,7 @@ In addition to these basic functionalities, you may need a :
 					vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
 					vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
 					vim.keymap.set("n", "gi", vim.lsp.buf.implementation, opts)
-					vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, opts)
+					vim.keymap.set("n", "gk", vim.lsp.buf.signature_help, opts)
 					vim.keymap.set("n", "<space>wa", vim.lsp.buf.add_workspace_folder, opts)
 					vim.keymap.set("n", "<space>wr", vim.lsp.buf.remove_workspace_folder, opts)
 
