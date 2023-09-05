@@ -15,41 +15,41 @@ configurations, and plugins.
 -- vim.o options are variables that control the behavior of neovim. They can
 -- be set to change the appearance of Neovim or the way it behaves.
 
-vim.o.autochdir = false -- change directory to the file in the current window.
-vim.o.cdhome = true -- :cd without an argument changes the cwd to the $HOME dir.
+vim.o.autochdir = false      -- change directory to the file in the current window.
+vim.o.cdhome = true          -- :cd without an argument changes the cwd to the $HOME dir.
 
 vim.o.fileencoding = "utf-8" -- file encoding for multibyte text.
-vim.o.autoread = false -- read file when changed outside of Vim.
+vim.o.autoread = false       -- read file when changed outside of Vim.
 
-vim.o.wrap = false -- long lines wrap and continue on the next line.
-vim.o.autoindent = true -- take indent for new line from previous line.
-vim.o.scrolloff = 8 -- minimum nr. of lines above and below cursor.
+vim.o.wrap = false           -- long lines wrap and continue on the next line.
+vim.o.autoindent = true      -- take indent for new line from previous line.
+vim.o.scrolloff = 8          -- minimum nr. of lines above and below cursor.
 
-vim.o.incsearch = true -- highlight match while typing search pattern.
-vim.o.smartcase = true -- no ignore case when pattern has uppercase.
+vim.o.incsearch = true       -- highlight match while typing search pattern.
+vim.o.smartcase = true       -- no ignore case when pattern has uppercase.
 
-vim.o.number = true -- print the line number in front of each line.
-vim.o.relativenumber = true -- show relative line number in front of each line.
+vim.o.number = true          -- print the line number in front of each line.
+vim.o.relativenumber = true  -- show relative line number in front of each line.
 
-vim.o.signcolumn = "yes" -- always display the sign column.
-vim.o.colorcolumn = "80" -- highlight 80th column to indiate optimal code width.
-vim.o.cursorline = true -- highlight the screen line of the cursor.
+vim.o.signcolumn = "yes"     -- always display the sign column.
+vim.o.colorcolumn = "80"     -- highlight 80th column to indiate optimal code width.
+vim.o.cursorline = true      -- highlight the screen line of the cursor.
 
 -- use clipboard register "+" for all yank, delete, change and put operations.
 vim.o.clipboard = "unnamedplus"
 vim.o.selection = "exclusive" -- what type of selection to use.
 
-vim.o.spell = false -- enable spell checking.
-vim.o.spelllang = "en_us" -- language(s) to do spell checking for.
+vim.o.spell = false           -- enable spell checking.
+vim.o.spelllang = "en_us"     -- language(s) to do spell checking for.
 
-vim.o.swapfile = false -- whether to use a swapfile for a buffer.
-vim.o.backup = false -- keep backup file after overwriting a file.
+vim.o.swapfile = false        -- whether to use a swapfile for a buffer.
+vim.o.backup = false          -- keep backup file after overwriting a file.
 
-vim.o.undofile = true -- save undo information in a file.
+vim.o.undofile = true         -- save undo information in a file.
 vim.o.undodir = vim.fn.expand("~/.config/nvim/undodir")
 
 vim.o.background = "dark" -- use "dark" or "light" for highlight
-vim.g.mapleader = " " -- setting space as leader key.
+vim.g.mapleader = " "     -- setting space as leader key.
 
 -- PLUGIN MANAGER -------------------------------------------------------------
 
@@ -353,14 +353,17 @@ In addition to these basic functionalities, you may need a :
 
 	-- Only one functionality remains to be added now i.e auto-completion.
 	-- To make that work, we install below plugins.
+	{
+		"L3MON4D3/LuaSnip", -- snippet engine
+		dependencies = { "rafamadriz/friendly-snippets" },
+		-- follow latest release.
+		version = "2.*", -- Replace <CurrentMajor> by the latest released major (first number of latest release)
+		-- install jsregexp (optional!).
+		build = "make install_jsregexp",
+	},
 
 	{
 		"hrsh7th/nvim-cmp", -- completion plugin
-		"L3MON4D3/LuaSnip", -- snippet Engine
-		config = function()
-			require("luasnip").setup({})
-		end,
-
 		-- source for ...
 		"hrsh7th/cmp-nvim-lsp", -- builtin LSP client.
 		"hrsh7th/cmp-buffer", -- buffer words.
@@ -380,6 +383,12 @@ capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
 -- load the snippets contained in the plugin on startup.
 require("luasnip.loaders.from_vscode").lazy_load()
 
+local has_words_before = function()
+	unpack = unpack or table.unpack
+	local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+	return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
+end
+
 -- auto-completion setup ...
 local luasnip = require("luasnip")
 local cmp = require("cmp")
@@ -398,15 +407,21 @@ cmp.setup({
 			behavior = cmp.ConfirmBehavior.Replace,
 			select = true,
 		}),
+
 		["<Tab>"] = cmp.mapping(function(fallback)
 			if cmp.visible() then
 				cmp.select_next_item()
+				-- You could replace the expand_or_jumpable() calls with expand_or_locally_jumpable()
+				-- they way you will only jump inside the snippet region
 			elseif luasnip.expand_or_jumpable() then
 				luasnip.expand_or_jump()
+			elseif has_words_before() then
+				cmp.complete()
 			else
 				fallback()
 			end
 		end, { "i", "s" }),
+
 		["<S-Tab>"] = cmp.mapping(function(fallback)
 			if cmp.visible() then
 				cmp.select_prev_item()
