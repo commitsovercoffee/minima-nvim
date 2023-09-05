@@ -15,41 +15,41 @@ configurations, and plugins.
 -- vim.o options are variables that control the behavior of neovim. They can
 -- be set to change the appearance of Neovim or the way it behaves.
 
-vim.o.autochdir = false      -- change directory to the file in the current window.
-vim.o.cdhome = true          -- :cd without an argument changes the cwd to the $HOME dir.
+vim.o.autochdir = false -- change directory to the file in the current window.
+vim.o.cdhome = true -- :cd without an argument changes the cwd to the $HOME dir.
 
 vim.o.fileencoding = "utf-8" -- file encoding for multibyte text.
-vim.o.autoread = false       -- read file when changed outside of Vim.
+vim.o.autoread = false -- read file when changed outside of Vim.
 
-vim.o.wrap = false           -- long lines wrap and continue on the next line.
-vim.o.autoindent = true      -- take indent for new line from previous line.
-vim.o.scrolloff = 8          -- minimum nr. of lines above and below cursor.
+vim.o.wrap = false -- long lines wrap and continue on the next line.
+vim.o.autoindent = true -- take indent for new line from previous line.
+vim.o.scrolloff = 8 -- minimum nr. of lines above and below cursor.
 
-vim.o.incsearch = true       -- highlight match while typing search pattern.
-vim.o.smartcase = true       -- no ignore case when pattern has uppercase.
+vim.o.incsearch = true -- highlight match while typing search pattern.
+vim.o.smartcase = true -- no ignore case when pattern has uppercase.
 
-vim.o.number = true          -- print the line number in front of each line.
-vim.o.relativenumber = true  -- show relative line number in front of each line.
+vim.o.number = true -- print the line number in front of each line.
+vim.o.relativenumber = true -- show relative line number in front of each line.
 
-vim.o.signcolumn = "yes"     -- always display the sign column.
-vim.o.colorcolumn = "80"     -- highlight 80th column to indiate optimal code width.
-vim.o.cursorline = true      -- highlight the screen line of the cursor.
+vim.o.signcolumn = "yes" -- always display the sign column.
+vim.o.colorcolumn = "80" -- highlight 80th column to indiate optimal code width.
+vim.o.cursorline = true -- highlight the screen line of the cursor.
 
 -- use clipboard register "+" for all yank, delete, change and put operations.
 vim.o.clipboard = "unnamedplus"
 vim.o.selection = "exclusive" -- what type of selection to use.
 
-vim.o.spell = false           -- enable spell checking.
-vim.o.spelllang = "en_us"     -- language(s) to do spell checking for.
+vim.o.spell = false -- enable spell checking.
+vim.o.spelllang = "en_us" -- language(s) to do spell checking for.
 
-vim.o.swapfile = false        -- whether to use a swapfile for a buffer.
-vim.o.backup = false          -- keep backup file after overwriting a file.
+vim.o.swapfile = false -- whether to use a swapfile for a buffer.
+vim.o.backup = false -- keep backup file after overwriting a file.
 
-vim.o.undofile = true         -- save undo information in a file.
+vim.o.undofile = true -- save undo information in a file.
 vim.o.undodir = vim.fn.expand("~/.config/nvim/undodir")
 
 vim.o.background = "dark" -- use "dark" or "light" for highlight
-vim.g.mapleader = " "     -- setting space as leader key.
+vim.g.mapleader = " " -- setting space as leader key.
 
 -- PLUGIN MANAGER -------------------------------------------------------------
 
@@ -184,6 +184,25 @@ require("lazy").setup({
 		end,
 	},
 
+	-- Auto pairs braces
+	{
+		"windwp/nvim-autopairs",
+		config = function()
+			require("nvim-autopairs").setup({})
+		end,
+	},
+
+	-- Auto closes tags
+	{
+		"windwp/nvim-ts-autotag",
+		config = function()
+			require("nvim-ts-autotag").setup({})
+		end,
+	},
+
+	-- Indents blank lines
+	"lukas-reineke/indent-blankline.nvim",
+
 	-- Run git commands from neovim using commands like ":Git log" or ":Git status".
 	"tpope/vim-fugitive",
 
@@ -245,8 +264,7 @@ In addition to these basic functionalities, you may need a :
 			require("lspconfig").svelte.setup({}) -- svelte
 			require("lspconfig").astro.setup({}) -- astro
 			require("lspconfig").tailwindcss.setup({}) -- tailwindcss
-			require("lspconfig").gopls.setup {} -- google's lsp for golang
-
+			require("lspconfig").gopls.setup({}) -- google's lsp for golang
 
 			-- Step 4 : Open file in neovim for which you have installed lsp.
 			-- Step 5 : Run ":LspInfo", to verify that lsp is attached.
