@@ -287,6 +287,8 @@ In addition to these basic functionalities, you may need a :
 			require("lspconfig").astro.setup({}) -- astro
 			require("lspconfig").tailwindcss.setup({}) -- tailwindcss
 			require("lspconfig").gopls.setup({}) -- google's lsp for golang
+			require("lspconfig").cssls.setup({}) -- css
+			require("lspconfig").bashls.setup({}) -- bash
 
 			-- Step 4 : Open file in neovim for which you have installed lsp.
 			-- Step 5 : Run ":LspInfo", to verify that lsp is attached.
@@ -341,6 +343,7 @@ In addition to these basic functionalities, you may need a :
 					require("null-ls").builtins.formatting.astyle,
 					require("null-ls").builtins.formatting.goimports,
 					require("null-ls").builtins.formatting.gofumpt,
+					require("null-ls").builtins.formatting.beautysh,
 					require("null-ls").builtins.formatting.prettierd.with({
 						filetypes = {
 							"html",
@@ -351,6 +354,11 @@ In addition to these basic functionalities, you may need a :
 							"javascript",
 							"css",
 							"astro",
+							"bash",
+							"csh",
+							"ksh",
+							"sh",
+							"zsh",
 						},
 					}),
 
