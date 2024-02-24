@@ -317,7 +317,7 @@ In addition to these basic functionalities, you may need a :
 
 	-- Guide : Setup installed formatter or linter.
 	{
-		"jose-elias-alvarez/null-ls.nvim",
+		"nvimtools/none-ls.nvim",
 		config = function()
 			require("null-ls").setup({
 				sources = {
@@ -331,7 +331,6 @@ In addition to these basic functionalities, you may need a :
 					require("null-ls").builtins.formatting.astyle,
 					require("null-ls").builtins.formatting.goimports,
 					require("null-ls").builtins.formatting.gofumpt,
-					require("null-ls").builtins.formatting.beautysh,
 					require("null-ls").builtins.formatting.prettierd.with({
 						filetypes = {
 							"html",
