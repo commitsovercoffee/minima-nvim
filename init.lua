@@ -106,7 +106,7 @@ require("lazy").setup({
 			require("toggleterm").setup({
 				size = 20,
 				open_mapping = [[<c-space>]], -- use [Ctrl][Space] to toggle terminal.
-				direction = "horizontal",
+				direction = "float",
 			})
 		end,
 	},
@@ -331,7 +331,7 @@ In addition to these basic functionalities, you may need a :
 					require("null-ls").builtins.formatting.astyle,
 					require("null-ls").builtins.formatting.goimports,
 					require("null-ls").builtins.formatting.gofumpt,
-					require("null-ls").builtins.formatting.prettierd.with({
+					require("null-ls").builtins.formatting.prettier.with({
 						filetypes = {
 							"html",
 							"json",
