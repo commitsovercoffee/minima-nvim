@@ -219,6 +219,22 @@ require("lazy").setup({
 		},
 	},
 
+	-- Rust development plugin
+	{
+		"mrcjkb/rustaceanvim",
+		version = "^4", -- Recommended
+		lazy = false, -- This plugin is already lazy
+	},
+
+	{
+
+		"rust-lang/rust.vim",
+		ft = "rust",
+		init = function()
+			vim.g.rustfmt_autosave = 1
+		end,
+	},
+
 	{
 		"mrjones2014/smart-splits.nvim",
 		config = function()
@@ -277,7 +293,6 @@ In addition to these basic functionalities, you may need a :
 			require("lspconfig").gopls.setup({}) -- google's lsp for golang
 			require("lspconfig").cssls.setup({}) -- css
 			require("lspconfig").bashls.setup({}) -- bash
-			require("lspconfig").rust_analyzer.setup({}) -- rust
 
 			-- Step 4 : Open file in neovim for which you have installed lsp.
 			-- Step 5 : Run ":LspInfo", to verify that lsp is attached.
@@ -332,7 +347,6 @@ In addition to these basic functionalities, you may need a :
 					require("null-ls").builtins.formatting.astyle,
 					require("null-ls").builtins.formatting.goimports,
 					require("null-ls").builtins.formatting.gofumpt,
-					require("null-ls").builtins.formatting.rustfmt,
 					require("null-ls").builtins.formatting.prettier.with({
 						filetypes = {
 							"html",
