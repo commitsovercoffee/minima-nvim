@@ -180,6 +180,14 @@ require("lazy").setup({
 		end,
 	},
 
+	-- Visual multi cursor
+	{
+		"mg979/vim-visual-multi",
+		config = function()
+			require("vim-visual-multi").setup({})
+		end,
+	},
+
 	-- Auto pairs braces
 	{
 		"windwp/nvim-autopairs",
